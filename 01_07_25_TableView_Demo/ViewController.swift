@@ -7,18 +7,27 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
+class ViewController: UIViewController {
 
     @IBOutlet var studentTableView: UITableView!
     
+    var number = 10
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+       initializeTableView()
+    }
+    
+    func initializeTableView(){
         studentTableView.dataSource = self
         studentTableView.delegate = self
     }
-    
+}
+
+//MARK : Implementation of DataSource Methods
+extension ViewController : UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        return number
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,5 +39,12 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         cell.textLabel!.text = "Student -- \(indexPath.section) --- \(indexPath.row)"
         cell.backgroundColor = .orange
         return cell
+    }
+}
+
+//MARK : Implementation of Delegate Methods
+extension ViewController : UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
     }
 }
